@@ -46,11 +46,6 @@ const calculator = () => {
     array.push('multiplicacióm de '+primerNumero +' * '+segundoNumero+' = '+multiplicacion);
     array.push('división de '+primerNumero +' / '+segundoNumero+' = '+division);
     console.log(array);
-
-    /* console.log(primerNumero +' + '+segundoNumero+' = '+suma);
-    console.log(primerNumero +' - '+segundoNumero+' = '+resta);
-    console.log(primerNumero +' * '+segundoNumero+' = '+multiplicacion);
-    console.log(primerNumero +' / '+segundoNumero+' = '+division); */
 }
 
 
