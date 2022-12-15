@@ -1,0 +1,146 @@
+var flights = [
+    { id: 00, to: "New York", from: "Barcelona", cost: 700, scale: false },
+    { id: 01, to: "Los Angeles", from: "Madrid", cost: 1100, scale: true },
+    { id: 02, to: "Paris", from: "Barcelona", cost: 210, scale: false },
+    { id: 03, to: "Roma", from: "Barcelona", cost: 150, scale: false },
+    { id: 04, to: "London", from: "Madrid", cost: 200, scale: false },
+    { id: 05, to: "Madrid", from: "Barcelona", cost: 90, scale: false },
+    { id: 06, to: "Tokyo", from: "Madrid", cost: 1500, scale: true },
+    { id: 07, to: "Shangai", from: "Barcelona", cost: 800, scale: true },
+    { id: 08, to: "Sydney", from: "Barcelona", cost: 150, scale: true },
+    { id: 09, to: "Tel-Aviv", from: "Madrid", cost: 150, scale: false },
+];
+
+const airlines = () => {
+    
+    const username = prompt('Introduzca el nombre de usuario.');
+    console.log('Bienvenido '+username);
+
+    let i = 0;
+    let costs = 0;
+    for(const flight of flights){
+        if(flight.scale){
+            console.log('El vuelo con origen: ' +flight.from+ ', y destino: ' +flight.to+ ' tiene un coste de ' + flight.cost + '€ y realiza escala');
+        }else{
+            console.log('El vuelo con origen: ' +flight.from+ ', y destino: ' +flight.to+ ' tiene un coste de ' + flight.cost + '€ y no realiza ninguna escala');
+        }
+        costs = costs + flight.cost;
+
+        i++;
+    }
+    const averageCosts = costs / flights.length;
+    console.log('Coste medio de los vuelos: '+ averageCosts)
+
+    console.log('Últimos 5 destinos:');
+    for(const flight of flights){
+        if(flight.id >= 5){
+            console.log(flight.to);
+        }
+    }
+}
+
+const pro = () => {
+
+    let userType = prompt('Introduzca el tipo de usuario (ADMIN/USER).');
+    userType = userType.toUpperCase();
+
+    if(userType === 'ADMIN'){
+
+        let action = prompt('Selecciona una accion (AÑADIR/BORRAR).');
+        action = action.toUpperCase();
+    
+            if(action === 'AÑADIR'){
+
+                if(flights.length >= 15){
+                    alert('No se pueden introducir mas vuelos. Ya hay 15 introducidos.');
+                }else{
+                    const to = prompt('Introduce destino.');
+                    const from = prompt('Introduce origen.');
+                    const cost = prompt('Introduce un precio.');
+                    const scale = prompt('¿Tiene escala? (Si/No).');
+                    let escala = false;
+                    if(scale === 'Si'){
+                        escala = true; 
+                    }
+                    
+                    const flight = {
+                        id: flights[flights.length-1].id +1,
+                        to: to,
+                        from: from,
+                        cost: cost,
+                        scale: escala
+                    };
+        
+                    flights.push(flight);
+                    console.log('Se ha introducido el siguiente vuelo: ',flight);
+                    console.log(flights);
+                }
+    
+
+
+
+        
+        }else if(action === 'BORRAR'){
+
+            if(flights.length === 0){
+                console.log('No hay vuelos disponibles.');
+            }else{
+                for(const flight of flights){
+                    if(flight.scale){
+                        console.log(flight.id +' El vuelo con origen: ' +flight.from+ ', y destino: ' +flight.to+ ' tiene un coste de ' + flight.cost + '€ y realiza escala');
+                    }else{
+                        console.log(flight.id +' El vuelo con origen: ' +flight.from+ ', y destino: ' +flight.to+ ' tiene un coste de ' + flight.cost + '€ y no realiza ninguna escala');
+                    }
+                }
+                const id = prompt('Selecciona un id para borrar.');
+                if(!isNaN(id)){
+                    const result = flights.find(flight => flight.id === parseInt(id));
+                    if(result === undefined){
+                        console.log('No se ha encontrado el id introducido.');
+                        return false;
+                    }
+                    if(result.id === parseInt(id)){
+
+                        flights.splice(result.id, 1);
+                        console.log('Se ha borrado el vuelo con id: '+id);
+                    }else{
+                        console.log('No se encontro el id introducido.');
+                    }
+                    console.log(flights)
+
+                }else{
+                    console.log('Debe introducir un id válido. (Números).')
+                }
+            }
+
+        }else{
+            console.log('Introduzca una acción válida.');
+        }
+
+    }else if(userType === 'USER'){
+
+        const prize = prompt('Introduzca un precio.');
+        if(!isNaN(prize)){
+            const results = flights.filter(v => prize >= v.cost);
+            if(results.length > 0){
+                console.log('Vuelos igual o mas baratos al precio introducido: ' +prize);
+                for(const result of results){
+                    if(result.scale){
+                        console.log('El vuelo con origen: ' +result.from+ ', y destino: ' +result.to+ ' tiene un coste de ' + result.cost + '€ y realiza escala');
+                    }else{
+                        console.log('El vuelo con origen: ' +result.from+ ', y destino: ' +result.to+ ' tiene un coste de ' + result.cost + '€ y no realiza ninguna escala');
+                    }
+                }
+            }else{
+                console.log('No se encontró ningún vuelo.')
+            }
+            
+        }else{
+            console.log('Debe introducir un precio válido. (Números).')
+        }
+        
+    }else{
+        console.log('Introduzca una acción válida.')
+    }
+
+}
