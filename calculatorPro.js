@@ -13,7 +13,7 @@ const calculatorPro = () => {
         }else{
             array.push(primerNumero);
             do{
-                respuesta = prompt('¿Quieres introducir otro número?');
+                respuesta = prompt('¿Quieres introducir otro número?(y/n)');
                 if(respuesta !== 'y'){
                     break;
                 }
