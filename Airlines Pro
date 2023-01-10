@@ -18,14 +18,20 @@ const airlines = () => {
 
     let i = 0;
     let costs = 0;
-    for(const flight of flights){
-        if(flight.scale){
-            console.log('El vuelo con origen: ' +flight.from+ ', y destino: ' +flight.to+ ' tiene un coste de ' + flight.cost + '€ y realiza escala');
-        }else{
-            console.log('El vuelo con origen: ' +flight.from+ ', y destino: ' +flight.to+ ' tiene un coste de ' + flight.cost + '€ y no realiza ninguna escala');
-        }
-        costs = costs + flight.cost;
 
+    const scaleTrue = flights.filter(v => v.scale === true);
+    const scaleFalse = flights.filter(v => v.scale === false);
+
+    console.log('Vuelos con escala: ');
+    for(const flight of scaleTrue){
+        console.log('El vuelo con origen: ' +flight.from+ ', y destino: ' +flight.to+ ' tiene un coste de ' + flight.cost + '€ y realiza escala');
+    }
+    console.log('Vuelos sin escala: ');
+    for(const flight of scaleFalse){
+        console.log('El vuelo con origen: ' +flight.from+ ', y destino: ' +flight.to+ ' tiene un coste de ' + flight.cost + '€ y no realiza ninguna escala');
+    }
+    for(const flight of flights){
+        costs = costs + flight.cost;
         i++;
     }
     const averageCosts = costs / flights.length;
