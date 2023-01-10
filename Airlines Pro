@@ -37,6 +37,8 @@ const airlines = () => {
             console.log(flight.to);
         }
     }
+    
+    pro()
 }
 
 const pro = () => {
